@@ -6,6 +6,8 @@ using ApplicationLayer.Services;
 using ApplicationLayer.External;
 using System;
 using MediatR;
+using EventFlow.Logs;
+using Newtonsoft.Json;
 
 namespace ApplicationLayer.Jobs
 {
@@ -18,15 +20,21 @@ namespace ApplicationLayer.Jobs
         {
             IExternalEventReceiver receiver = null;
             IMediator mediator = null;
+            ILog log = null;
             try
             {
+                log = resolver.Resolve<ILog>();
                 receiver = resolver.Resolve<IExternalEventReceiver>();
                 var mediatorBuilder = resolver.Resolve<ExternalEventMediatorBuilder>();
                 mediator = mediatorBuilder.Build();
             }
             catch(Exception e)
             {
-                // TODO :: Log here.
+                if (log != null)
+                {
+                    log.Fatal(e, "Error happened during resolving dependencies in 'ExternalEventProcessorJob'");
+                }
+
                 return;
             }
 
@@ -37,11 +45,23 @@ namespace ApplicationLayer.Jobs
                 try
                 {
                     var result = await mediator.Send(@event);
-                    // TODO :: Log here.
+                    if (result.IsSuccess)
+                    {
+                        log.Information(
+                            "Successfully processed event with payload {0}",
+                            JsonConvert.SerializeObject(@event));
+                    }
+                    else
+                    {
+                        log.Error(
+                            "Failure during processing of event with payload {0}. Error [{1}]",
+                            JsonConvert.SerializeObject(@event),
+                            result.ToString());
+                    }
                 }
                 catch(Exception e)
                 {
-                    // TODO :: Log here.
+                    log.Fatal(e, "Unexpected error occurred when receiving or processing events.");
                 }
             }
         }
