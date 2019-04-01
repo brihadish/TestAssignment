@@ -8,6 +8,9 @@
     <PackageReference Include="eventflow" Version="0.69.3772" />
     <PackageReference Include="lightinject" Version="5.4.0" />
     <PackageReference Include="mediatr" Version="6.0.0" />
+    <PackageReference Include="serilog" Version="2.8.0" />
+    <PackageReference Include="Serilog.Sinks.ApplicationInsights" Version="3.0.2" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
   </ItemGroup>
 
   <ItemGroup>

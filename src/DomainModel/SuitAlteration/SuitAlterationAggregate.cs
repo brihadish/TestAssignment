@@ -72,7 +72,7 @@ namespace DomainModel.SuitAlteration
             if (_state.Status == SuitAlterationStatus.Succeeded ||
                 _state.Status == SuitAlterationStatus.Failed)
             {
-                return ExecutionResult.Failed("SuitAlterationAlreadyPerformed");
+                return ExecutionResult.Failed(SuitAlterationAggregateFailureReasons.SuitAlterationAlreadyPerformed);
             }
 
             if (_state.Status == SuitAlterationStatus.Created)

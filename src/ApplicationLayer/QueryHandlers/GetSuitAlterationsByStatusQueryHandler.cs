@@ -10,6 +10,7 @@ namespace ApplicationLayer.QueryHandlers
 {
     /// <summary>
     /// Executes <see cref="GetSuitAlterationsByStatusQuery"/>.
+    /// // TODO before deployment :- Use a repository which internally uses a durable read model store instead of 'IInMemoryReadStore'.
     /// </summary>
     public sealed class GetSuitAlterationsByStatusQueryHandler : IQueryHandler<GetSuitAlterationsByStatusQuery, IReadOnlyCollection<SuitAlterationReadModel>>
     {

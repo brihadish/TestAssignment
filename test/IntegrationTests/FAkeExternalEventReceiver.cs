@@ -6,7 +6,7 @@ using ApplicationLayer.Services;
 
 namespace IntegrationTests
 {
-    public sealed class MockExternalEventReceiver : IExternalEventReceiver
+    public sealed class FakeExternalEventReceiver : IExternalEventReceiver
     {
         private readonly BufferBlock<ExternalEvent> _bufferBlock = new BufferBlock<ExternalEvent>(new DataflowBlockOptions
         {

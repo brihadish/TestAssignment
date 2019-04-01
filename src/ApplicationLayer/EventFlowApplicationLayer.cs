@@ -10,6 +10,7 @@ using ApplicationLayer.External;
 using EventFlow.Configuration;
 using ApplicationLayer.Jobs;
 using ApplicationLayer.Services;
+using EventFlow.Logs;
 
 namespace ApplicationLayer
 {
@@ -18,13 +19,15 @@ namespace ApplicationLayer
     /// </summary>
     public static class EventFlowApplicationLayer
     {
-        public static Assembly Assembly { get; } = typeof(EventFlowApplicationLayer).Assembly;
-
-        public static IEventFlowOptions Configure(IExternalEventReceiver externalEventReceiver)
+        public static IEventFlowOptions Configure(
+                        IExternalEventReceiver externalEventReceiver,
+                        INotificationService notificationService,
+                        SerilogLogger serilogLogger)
         {
-            // TODO :- Remove 'InMemoryReadStore' and 'InMemoryEventPersitence'. Take durable implementatiions 
+            // TODO before deployment :- Remove 'InMemoryReadStore' and 'InMemoryEventPersitence'. Take durable implementatiions 
             // as input.
             return EventFlowOptions.New
+                .Configure(c => c.IsAsynchronousSubscribersEnabled = true)
                 .AddDefaults(typeof(EventFlowApplicationLayer).Assembly)
                 .AddDefaults(typeof(SuitId).Assembly)
                 .UseInMemoryReadStoreFor<SuitAlterationReadModel>()
@@ -33,6 +36,8 @@ namespace ApplicationLayer
                 {
                     register.Register<ExternalEventMediatorBuilder, ExternalEventMediatorBuilder>(Lifetime.Singleton);
                     register.Register<IExternalEventReceiver>(ctx => externalEventReceiver, Lifetime.Singleton);
+                    register.Register<INotificationService>(ctx => notificationService, Lifetime.Singleton);
+                    register.Register<ILog>(ctx => serilogLogger, Lifetime.Singleton);
                 })
                 .AddJobs(typeof(ExternalEventProcessorJob));
         }

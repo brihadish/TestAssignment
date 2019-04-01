@@ -12,11 +12,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ApplicationLayer.External;
 using EventFlow.Jobs;
 using ApplicationLayer.Jobs;
+using System.Linq;
 
 namespace IntegrationTests
 {
     [TestClass]
-    public sealed class OrderEventIntegrationTests
+    public sealed class AlterationFinishedNotificationIntegrationTests
     {
         private SuitAggregate _suit;
         private IAggregateStore _aggregateStore;
@@ -56,7 +57,7 @@ namespace IntegrationTests
         }
 
         [TestMethod]
-        public async Task Should_positively_alter_both_suit_sleeves_after_receiving_payment_confirmation()
+        public async Task Should_positively_alter_both_suit_sleeves_after_receiving_payment_confirmation_and_send_notification()
         {
             // Arrange
             var suitAlterationId = SuitAlterationId.New;
@@ -85,7 +86,11 @@ namespace IntegrationTests
 
             var updatedSuit = await _aggregateStore.LoadAsync<SuitAggregate, SuitId>(_suit.Id, CancellationToken.None);
             updatedSuit.LeftSleeveLength.Equals(new Measurement(95, MeasurementUnit.Centimeter)).Should().BeTrue();
-            updatedSuit.RightSleeveLength.Equals(new Measurement(95, MeasurementUnit.Centimeter)).Should().BeTrue();           
+            updatedSuit.RightSleeveLength.Equals(new Measurement(95, MeasurementUnit.Centimeter)).Should().BeTrue();
+            var notification =_notificationServiceSpy.Notifications.OfType<SuitAlterationFinishedNotification>().FirstOrDefault();
+            notification.Should().NotBeNull();
+            notification.SuitAlterationId.Should().Be(suitAlterationId.Value);
+            notification.SuitAlterationStatus.Should().Be("succeeded");
         }
     }
 }

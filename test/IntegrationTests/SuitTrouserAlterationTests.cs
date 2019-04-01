@@ -18,11 +18,21 @@ namespace IntegrationTests
         private SuitAggregate _suit;
         private IAggregateStore _aggregateStore;
         private ICommandBus _commandBus;
+        private FakeExternalEventReceiver _fakeExternalEventReceiver;
+        private NotificationServiceSpy _notificationServiceSpy;
 
         [TestInitialize]
         public async Task Initialize()
         {
-            var resolver = EventFlowApplicationLayer.Configure(new MockExternalEventReceiver()).CreateResolver();
+            _fakeExternalEventReceiver = new FakeExternalEventReceiver();
+            _notificationServiceSpy = new NotificationServiceSpy();
+            var resolver =
+                EventFlowApplicationLayer
+                                .Configure(
+                                    _fakeExternalEventReceiver,
+                                    _notificationServiceSpy,
+                                    new SerilogLogger(EventFlow.Logs.LogLevel.Debug, string.Empty))
+                                .CreateResolver();
             _aggregateStore = resolver.Resolve<IAggregateStore>();
             _commandBus = resolver.Resolve<ICommandBus>();
 

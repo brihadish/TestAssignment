@@ -12,14 +12,14 @@ using ApplicationLayer.External;
 namespace ApplicationLayer.Subscribers
 {
     /// <summary>
-    /// Handles <see cref="SuitAlterationSucceeded"/> so as to send notification to customer.
+    /// Handles <see cref="SuitAlterationFailed"/> so as to send notification to customer.
     /// </summary>
-    public sealed class SuitAlterationSucceededSubscriber :
-        ISubscribeAsynchronousTo<SuitAlterationAggregate, SuitAlterationId, SuitAlterationSucceeded>
+    public sealed class SuitAlterationFailedSubscriber :
+        ISubscribeAsynchronousTo<SuitAlterationAggregate, SuitAlterationId, SuitAlterationFailed>
     {
         private readonly INotificationService _notificationService;
 
-        public SuitAlterationSucceededSubscriber(IResolver resolver)
+        public SuitAlterationFailedSubscriber(IResolver resolver)
         {
             _notificationService = resolver.Resolve<INotificationService>();
             if (_notificationService == null)
@@ -29,12 +29,13 @@ namespace ApplicationLayer.Subscribers
         }
 
         public async Task HandleAsync(
-            IDomainEvent<SuitAlterationAggregate, SuitAlterationId, SuitAlterationSucceeded> domainEvent, CancellationToken cancellationToken)
+            IDomainEvent<SuitAlterationAggregate, SuitAlterationId, SuitAlterationFailed> domainEvent, CancellationToken cancellationToken)
         {
             var notification = new SuitAlterationFinishedNotification
             {
                 SuitAlterationId = domainEvent.AggregateIdentity.Value,
-                SuitAlterationStatus = domainEvent.AggregateEvent.Status.ToString().ToLowerInvariant()
+                SuitAlterationStatus = domainEvent.AggregateEvent.Status.ToString().ToLowerInvariant(),
+                SuitAlterationSummary = domainEvent.AggregateEvent.FailureReason
             };
             await _notificationService.PublishAsync(notification);
         }
