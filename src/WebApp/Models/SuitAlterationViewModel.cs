@@ -1,4 +1,6 @@
-﻿namespace WebApp.Models
+﻿using System;
+
+namespace WebApp.Models
 {
     public sealed class SuitAlterationViewModel
     {
@@ -21,5 +23,10 @@
         /// Gets or sets the status of the alteration.
         /// </summary>
         public string Status { get; set; }
+
+        /// <summary>
+        /// Gets or sets the timestamp of last modification.
+        /// </summary>
+        public DateTime LastModified { get; set; }
     }
 }

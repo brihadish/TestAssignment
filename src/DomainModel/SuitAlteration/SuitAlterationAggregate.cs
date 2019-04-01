@@ -40,7 +40,8 @@ namespace DomainModel.SuitAlteration
                 throw DomainError.With("SleeveAlteration is already created.");
             }
 
-            Emit(new SuitSleeveAlterationCreated(suit.CustomerId, suit.Id, suitSleeveAlterationChoice, alteration));
+            Emit(new SuitSleeveAlterationCreated(
+                suit.CustomerId, suit.Id, suitSleeveAlterationChoice, alteration, DateTime.UtcNow));
         }
 
         public void CreateForTrouser(SuitAggregate suit, SuitTrouserAlterationChoice suitTrouserAlterationChoice, MeasurementAlteration alteration)
@@ -60,7 +61,8 @@ namespace DomainModel.SuitAlteration
                 throw DomainError.With("TrouserAlteration is already created.");
             }
 
-            Emit(new SuitTrouserAlterationCreated(suit.CustomerId, suit.Id, suitTrouserAlterationChoice, alteration));
+            Emit(new SuitTrouserAlterationCreated(
+                suit.CustomerId, suit.Id, suitTrouserAlterationChoice, alteration, DateTime.UtcNow));
         }
 
         /// <summary>
@@ -77,7 +79,7 @@ namespace DomainModel.SuitAlteration
 
             if (_state.Status == SuitAlterationStatus.Created)
             {
-                Emit(new SuitAlterationPaymentReceived());
+                Emit(new SuitAlterationPaymentReceived(DateTime.UtcNow));
             }
 
             return ExecutionResult.Success();
@@ -120,7 +122,7 @@ namespace DomainModel.SuitAlteration
                 return ExecutionResult.Failed(SuitAlterationAggregateFailureReasons.InvalidOperationAsPerCurrentState);
             }
 
-            Emit(new SuitAlterationSucceeded(_state.CustomerId, _state.SuitId, tailorId));
+            Emit(new SuitAlterationSucceeded(_state.CustomerId, _state.SuitId, tailorId, DateTime.UtcNow));
             return ExecutionResult.Success();
         }
 
@@ -135,7 +137,7 @@ namespace DomainModel.SuitAlteration
                 return ExecutionResult.Failed(SuitAlterationAggregateFailureReasons.InvalidOperationAsPerCurrentState);
             }
 
-            Emit(new SuitAlterationSucceeded(_state.CustomerId, _state.SuitId, tailorId));
+            Emit(new SuitAlterationSucceeded(_state.CustomerId, _state.SuitId, tailorId, DateTime.UtcNow));
             return ExecutionResult.Success();
         }
     }

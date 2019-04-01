@@ -1,4 +1,5 @@
-﻿using EventFlow.Aggregates;
+﻿using System;
+using EventFlow.Aggregates;
 
 namespace DomainModel.SuitAlteration
 {
@@ -7,12 +8,13 @@ namespace DomainModel.SuitAlteration
     /// </summary>
     public sealed class SuitAlterationSucceeded : AggregateEvent<SuitAlterationAggregate, SuitAlterationId>
     {
-        public SuitAlterationSucceeded(CustomerId customerId, SuitId suitId, TailorId tailorId)
+        public SuitAlterationSucceeded(CustomerId customerId, SuitId suitId, TailorId tailorId, DateTime timestampUtc)
         {
             CustomerId = customerId;
             SuitId = suitId;
             TailorId = tailorId;
             Status = SuitAlterationStatus.Succeeded;
+            TimestampUtc = timestampUtc;
         }
 
         /// <summary>
@@ -34,5 +36,10 @@ namespace DomainModel.SuitAlteration
         /// Get the status of suit alteration.
         /// </summary>
         public SuitAlterationStatus Status { get; }
+
+        /// <summary>
+        /// Gets the timestamp of success.
+        /// </summary>
+        public DateTime TimestampUtc { get; }
     }
 }

@@ -15,6 +15,7 @@ using DomainModel.Suit;
 using EventFlow.Core;
 using EventFlow.Aggregates.ExecutionResults;
 using System;
+using System.Linq;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -40,7 +41,14 @@ namespace WebApp.Controllers
         {
             var query = new GetAllSuitAlterationsQuery();
             var result = await _queryProcessor.ProcessAsync(query, CancellationToken.None);
-            return View(result);
+            return View(result.Select(item => new SuitAlterationViewModel
+            {
+                SuitAlterationId = item.SuitAlterationId,
+                CustomerId = item.CustomerId,
+                SuitId = item.SuitId,
+                Status = item.Status,
+                LastModified = item.LastModifiedUtc.ToLocalTime()
+            }));
         }
 
         [HttpGet]

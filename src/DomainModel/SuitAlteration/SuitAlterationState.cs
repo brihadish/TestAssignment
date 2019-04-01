@@ -1,5 +1,6 @@
 ﻿using DomainModel.Suit;
 using EventFlow.Aggregates;
+using System;
 
 namespace DomainModel.SuitAlteration
 {
@@ -37,6 +38,11 @@ namespace DomainModel.SuitAlteration
         /// Gets or sets status of the alteration.
         /// </summary>
         public SuitAlterationStatus Status { get; set; }
+
+        /// <summary>
+        /// Gets or sets the timestamp of last modification.
+        /// </summary>
+        public DateTime LastModifiedUtc { get; set; }
 
         /// <summary>
         /// Applies <see cref="SuitSleeveAlterationCreated"/> to change state.

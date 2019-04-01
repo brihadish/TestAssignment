@@ -1,4 +1,5 @@
-﻿using DomainModel;
+﻿using System;
+using DomainModel;
 using DomainModel.SuitAlteration;
 using EventFlow.ReadStores;
 using EventFlow.Aggregates;
@@ -35,12 +36,18 @@ namespace ApplicationLayer.ReadModels
         /// </summary>
         public string Status { get; private set; }
 
+        /// <summary>
+        /// Gets or sets the timestamp of last modification.
+        /// </summary>
+        public DateTime LastModifiedUtc { get; private set; }
+
         public void Apply(IReadModelContext context, IDomainEvent<SuitAlterationAggregate, SuitAlterationId, SuitSleeveAlterationCreated> domainEvent)
         {
             SuitAlterationId = domainEvent.AggregateIdentity.Value;
             CustomerId = domainEvent.AggregateEvent.CustomerId.Value;
             SuitId = domainEvent.AggregateEvent.SuitId.Value;
             Status = domainEvent.AggregateEvent.Status.ToString().ToLowerInvariant();
+            LastModifiedUtc = domainEvent.AggregateEvent.TimestampUtc;
         }
 
         public void Apply(IReadModelContext context, IDomainEvent<SuitAlterationAggregate, SuitAlterationId, SuitTrouserAlterationCreated> domainEvent)
@@ -49,21 +56,25 @@ namespace ApplicationLayer.ReadModels
             CustomerId = domainEvent.AggregateEvent.CustomerId.Value;
             SuitId = domainEvent.AggregateEvent.SuitId.Value;
             Status = domainEvent.AggregateEvent.Status.ToString().ToLowerInvariant();
+            LastModifiedUtc = domainEvent.AggregateEvent.TimestampUtc;
         }
 
         public void Apply(IReadModelContext context, IDomainEvent<SuitAlterationAggregate, SuitAlterationId, SuitAlterationPaymentReceived> domainEvent)
         {
             Status = domainEvent.AggregateEvent.Status.ToString().ToLowerInvariant();
+            LastModifiedUtc = domainEvent.AggregateEvent.TimestampUtc;
         }
 
         public void Apply(IReadModelContext context, IDomainEvent<SuitAlterationAggregate, SuitAlterationId, SuitAlterationSucceeded> domainEvent)
         {
             Status = domainEvent.AggregateEvent.Status.ToString().ToLowerInvariant();
+            LastModifiedUtc = domainEvent.AggregateEvent.TimestampUtc;
         }
 
         public void Apply(IReadModelContext context, IDomainEvent<SuitAlterationAggregate, SuitAlterationId, SuitAlterationFailed> domainEvent)
         {
             Status = domainEvent.AggregateEvent.Status.ToString().ToLowerInvariant();
+            LastModifiedUtc = domainEvent.AggregateEvent.TimestampUtc;
         }
     }
 }

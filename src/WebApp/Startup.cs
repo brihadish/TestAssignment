@@ -36,12 +36,12 @@ namespace WebApp
         {
             services.AddMvc();
             var fakeExternalEventReceiver = new FakeExternalEventReceiver();
-            var notificationServiceDummy = new NotificationServiceDummy();
+            var fakeNotificationService = new FakeNotificationService();
             var resolver =
                 EventFlowApplicationLayer
                                 .Configure(
                                     fakeExternalEventReceiver,
-                                    notificationServiceDummy,
+                                    fakeNotificationService,
                                     new SerilogLogger(EventFlow.Logs.LogLevel.Debug, string.Empty))
                                 .CreateResolver();
             services.AddSingleton<IResolver>(resolver);
