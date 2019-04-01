@@ -15,7 +15,7 @@ namespace DomainModel.SuitAlteration
             SuitId = suitId;
             SuitTrouserAlterationChoice = suitTrouserAlterationChoice;
             Alteration = alteration;
-            Status = SuitAlterationStatus.Succeeded;
+            Status = SuitAlterationStatus.Created;
         }
 
         /// <summary>

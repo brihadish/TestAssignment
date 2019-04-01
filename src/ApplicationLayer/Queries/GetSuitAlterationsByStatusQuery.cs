@@ -9,14 +9,14 @@ namespace ApplicationLayer.Queries
     /// </summary>
     public sealed class GetSuitAlterationsByStatusQuery : IQuery<IReadOnlyCollection<SuitAlterationReadModel>>
     {
-        /// <summary>
-        /// Gets the suit alteration status on which to filter the records.
-        /// </summary>
-        public string SuitAlterationStatus { get; }
-
         public GetSuitAlterationsByStatusQuery(string suitAlterationStatus)
         {
             SuitAlterationStatus = suitAlterationStatus?.ToLowerInvariant();
         }
+
+        /// <summary>
+        /// Gets the suit alteration status on which to filter the records.
+        /// </summary>
+        public string SuitAlterationStatus { get; }
     }
 }

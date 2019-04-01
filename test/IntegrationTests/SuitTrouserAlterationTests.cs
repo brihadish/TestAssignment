@@ -53,7 +53,7 @@ namespace IntegrationTests
         {
             // Arrange
             var suitAlterationId = SuitAlterationId.New;
-            var createSleeveAlterationCommand =
+            var createTrouserAlterationCommand =
                 new CreateSuitTrouserAlterationCommand(
                                 suitAlterationId,
                                 _suit.Id,
@@ -63,7 +63,7 @@ namespace IntegrationTests
             var executeAlterationCommand = new ExecuteSuitAlterationCommand(_suit.Id, suitAlterationId, TailorId.New);
 
             // Act and Assert
-            var result = await _commandBus.PublishAsync(createSleeveAlterationCommand, CancellationToken.None);
+            var result = await _commandBus.PublishAsync(createTrouserAlterationCommand, CancellationToken.None);
             result.IsSuccess.Should().BeTrue();
 
             result = await _commandBus.PublishAsync(reportAlterationPaymentCommand, CancellationToken.None);
@@ -82,7 +82,7 @@ namespace IntegrationTests
         {
             // Arrange
             var suitAlterationId = SuitAlterationId.New;
-            var createSleeveAlterationCommand =
+            var createTrouserAlterationCommand =
                 new CreateSuitTrouserAlterationCommand(
                                 suitAlterationId,
                                 _suit.Id,
@@ -92,7 +92,7 @@ namespace IntegrationTests
             var executeAlterationCommand = new ExecuteSuitAlterationCommand(_suit.Id, suitAlterationId, TailorId.New);
 
             // Act and Assert
-            var result = await _commandBus.PublishAsync(createSleeveAlterationCommand, CancellationToken.None);
+            var result = await _commandBus.PublishAsync(createTrouserAlterationCommand, CancellationToken.None);
             result.IsSuccess.Should().BeTrue();
 
             result = await _commandBus.PublishAsync(reportAlterationPaymentCommand, CancellationToken.None);
@@ -110,7 +110,7 @@ namespace IntegrationTests
         {
             // Arrange
             var suitAlterationId = SuitAlterationId.New;
-            var createSleeveAlterationCommand =
+            var createTrouserAlterationCommand =
                 new CreateSuitTrouserAlterationCommand(
                                 suitAlterationId,
                                 _suit.Id,
@@ -121,7 +121,7 @@ namespace IntegrationTests
 
             // Act and Assert
 
-            var result = await _commandBus.PublishAsync(createSleeveAlterationCommand, CancellationToken.None);
+            var result = await _commandBus.PublishAsync(createTrouserAlterationCommand, CancellationToken.None);
             result.IsSuccess.Should().BeTrue();
 
             result = await _commandBus.PublishAsync(reportAlterationPaymentCommand, CancellationToken.None);
@@ -139,7 +139,7 @@ namespace IntegrationTests
         {
             // Arrange
             var suitAlterationId = SuitAlterationId.New;
-            var createSleeveAlterationCommand =
+            var createTrouserAlterationCommand =
                 new CreateSuitTrouserAlterationCommand(
                                 suitAlterationId,
                                 _suit.Id,
@@ -149,7 +149,7 @@ namespace IntegrationTests
             var executeAlterationCommand = new ExecuteSuitAlterationCommand(_suit.Id, suitAlterationId, TailorId.New);
 
             // Act and Assert
-            var result = await _commandBus.PublishAsync(createSleeveAlterationCommand, CancellationToken.None);
+            var result = await _commandBus.PublishAsync(createTrouserAlterationCommand, CancellationToken.None);
             result.IsSuccess.Should().BeTrue();
 
             result = await _commandBus.PublishAsync(reportAlterationPaymentCommand, CancellationToken.None);
@@ -168,7 +168,7 @@ namespace IntegrationTests
         {
             // Arrange
             var suitAlterationId = SuitAlterationId.New;
-            var createSleeveAlterationCommand =
+            var createTrouserAlterationCommand =
                 new CreateSuitTrouserAlterationCommand(
                                 suitAlterationId,
                                 _suit.Id,
@@ -178,7 +178,7 @@ namespace IntegrationTests
             var executeAlterationCommand = new ExecuteSuitAlterationCommand(_suit.Id, suitAlterationId, TailorId.New);
 
             // Act and Assert
-            var result = await _commandBus.PublishAsync(createSleeveAlterationCommand, CancellationToken.None);
+            var result = await _commandBus.PublishAsync(createTrouserAlterationCommand, CancellationToken.None);
             result.IsSuccess.Should().BeTrue();
 
             result = await _commandBus.PublishAsync(reportAlterationPaymentCommand, CancellationToken.None);
@@ -196,7 +196,7 @@ namespace IntegrationTests
         {
             // Arrange
             var suitAlterationId = SuitAlterationId.New;
-            var createSleeveAlterationCommand =
+            var createTrouserAlterationCommand =
                 new CreateSuitTrouserAlterationCommand(
                                 suitAlterationId,
                                 _suit.Id,
@@ -207,7 +207,7 @@ namespace IntegrationTests
 
             // Act and Assert
 
-            var result = await _commandBus.PublishAsync(createSleeveAlterationCommand, CancellationToken.None);
+            var result = await _commandBus.PublishAsync(createTrouserAlterationCommand, CancellationToken.None);
             result.IsSuccess.Should().BeTrue();
 
             result = await _commandBus.PublishAsync(reportAlterationPaymentCommand, CancellationToken.None);

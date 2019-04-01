@@ -32,6 +32,8 @@ namespace ApplicationLayer
                 .AddDefaults(typeof(SuitId).Assembly)
                 .UseInMemoryReadStoreFor<SuitAlterationReadModel>()
                 .AddQueryHandler<GetSuitAlterationsByStatusQueryHandler, GetSuitAlterationsByStatusQuery, IReadOnlyCollection<SuitAlterationReadModel>>()
+                .AddQueryHandler<GetAllSuitAlterationsQueryHandler, GetAllSuitAlterationsQuery, IReadOnlyCollection<SuitAlterationReadModel>>()
+                .AddQueryHandler<GetSuitAlterationByIdQueryHandler, GetSuitAlterationByIdQuery, SuitAlterationReadModel>()
                 .RegisterServices(register =>
                 {
                     register.Register<ExternalEventMediatorBuilder, ExternalEventMediatorBuilder>(Lifetime.Singleton);

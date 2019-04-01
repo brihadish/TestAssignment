@@ -1,0 +1,50 @@
+﻿@model IEnumerable<ApplicationLayer.ReadModels.SuitAlterationReadModel>
+@{
+    ViewData["Title"] = "Suit Alterations";
+}
+
+<h2>Existing Suit Alterations</h2>
+<a asp-controller="SuitAlteration" asp-action="NewSuitAlteration">New Suit Alteration</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                SuitAlterationId
+            </th>
+            <th>
+                CustomerId
+            </th>
+            <th>
+                SuitId
+            </th>
+            <th>
+                Status
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SuitAlterationId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SuitId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @if (item.Status == "created" || item.Status == "paid")
+                    {
+                        <a asp-controller="SuitAlteration" asp-action="SuitAlterationDetails" asp-route-suitalterationid="@item.SuitAlterationId">Details</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -48,7 +48,7 @@ namespace DomainModel.SuitAlteration
             SuitId = aggregateEvent.SuitId;
             SuitAlterationStrategy = SuitAlterationStrategies.GetStrategy(aggregateEvent.SuitSleeveAlterationChoice);
             AlterationMeasurement = aggregateEvent.Alteration;
-            Status = SuitAlterationStatus.Created;
+            Status = aggregateEvent.Status;
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace DomainModel.SuitAlteration
             SuitId = aggregateEvent.SuitId;
             SuitAlterationStrategy = SuitAlterationStrategies.GetStrategy(aggregateEvent.SuitTrouserAlterationChoice);
             AlterationMeasurement = aggregateEvent.Alteration;
-            Status = SuitAlterationStatus.Created;
+            Status = aggregateEvent.Status;
         }
 
         /// <summary>
