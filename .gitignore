@@ -1,0 +1,24 @@
+# Add any directories, files, or patterns you don't want to be tracked by version control
+# Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
+bin/
+obj/
+[Oo]bj
+[Bb]in
+
+*.user
+*.suo
+*.[Cc]ache
+*.bak
+*.log
+
+# OS junk files
+*.DS_Store
+[Tt]humbs.db 
+
+# Upgrade reports
+_UpgradeReport_Files/
+UpgradeLog*.htm
+UpgradeLog*.XML
+
+packages/
+.vs/
