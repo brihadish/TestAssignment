@@ -76,18 +76,13 @@ namespace WebApp.Controllers
         {
             if (model.Status == "created")
             {
-                var reportAlterationPaymentCommand = new RecordSuitAlterationPaymentCommand(SuitAlterationId.With(model.SuitAlterationId));
-                var result = await _commandBus.PublishAsync(reportAlterationPaymentCommand, CancellationToken.None);
-                if (!result.IsSuccess)
-                {
-                    return RedirectToAction("Home", "Error", result.ToString());
-                }
-
+                // Simulate receiving payment order and wait for 2 seconds for the processing to complete.
                 await _fakeExternalEventReceiver.AddEventAsync(new OrderPaidEvent
                 {
                     SuitAlterationId = model.SuitAlterationId,
                     Type = "orderpaid"
                 });
+                await Task.Delay(2000);
             }
             
             if (model.Status == "paid")
